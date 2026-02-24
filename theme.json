@@ -1,0 +1,28 @@
+{
+    "colors": {
+        "window_bg": "#aaaaff",
+        "text": "#ffffff",
+        "label_text": "#cccccc",
+        "input_bg": "#3c3f41",
+        "input_border": "#555555",
+        "input_border_focus": "#3a96dd",
+        "button_bg": "#3a96dd",
+        "button_text": "#ffffff",
+        "button_hover": "#2b86cd",
+        "button_pressed": "#1a76bd",
+        "stop_btn_bg": "#d32f2f",
+        "stop_btn_hover": "#f44336",
+        "stop_btn_pressed": "#b71c1c",
+        "list_bg": "#3c3f41",
+        "list_item_selected": "#3a96dd"
+    },
+    "fonts": {
+        "family": "Segoe UI",
+        "size": "14px"
+    },
+    "sizes": {
+        "border_radius": "4px",
+        "input_padding": "5px",
+        "btn_padding": "8px 16px"
+    }
+}

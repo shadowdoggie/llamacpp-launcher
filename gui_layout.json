@@ -1,0 +1,158 @@
+[
+    {
+        "label": "Model",
+        "key": "model",
+        "type": "combo",
+        "default": [],
+        "options": []
+    },
+    {
+        "label": "Multimodal Projector (mmproj)",
+        "key": "mmproj",
+        "type": "combo",
+        "default": "",
+        "options": [""]
+    },
+    {
+        "label": "Port",
+        "key": "port",
+        "type": "int",
+        "default": 8080
+    },
+    {
+        "label": "Context Size",
+        "key": "ctx-size",
+        "type": "int",
+        "default": 32000
+    },
+    {
+        "label": "GPU Layers (-ngl)",
+        "key": "ngl",
+        "type": "int",
+        "default": 999
+    },
+    {
+        "label": "Batch Size (-ub)",
+        "key": "ub",
+        "type": "int",
+        "default": 512
+    },
+    {
+        "label": "CPU MoE (--n-cpu-moe)",
+        "key": "n-cpu-moe",
+        "type": "int",
+        "default": 0
+    },
+    {
+        "label": "Temperature",
+        "key": "temp",
+        "type": "float",
+        "default": 0.7
+    },
+    {
+        "label": "Top P",
+        "key": "top-p",
+        "type": "float",
+        "default": 0.8
+    },
+    {
+        "label": "Top K",
+        "key": "top-k",
+        "type": "int",
+        "default": 20
+    },
+    {
+        "label": "Repeat Penalty",
+        "key": "repeat-penalty",
+        "type": "float",
+        "default": 1.05
+    },
+    {
+        "label": "Main GPU",
+        "key": "main-gpu",
+        "type": "int",
+        "default": 0
+    },
+    {
+        "label": "Split Mode",
+        "key": "split-mode",
+        "type": "combo",
+        "default": "layer",
+        "options": [
+            "layer",
+            "row",
+            "none"
+        ]
+    },
+    {
+        "label": "Tensor Split (-ts)",
+        "key": "ts",
+        "type": "text",
+        "default": ""
+    },
+    {
+        "label": "Flash Attention",
+        "key": "flash-attn",
+        "type": "bool",
+        "default": true
+    },
+    {
+        "label": "Expose to Network (0.0.0.0)",
+        "key": "host_0000",
+        "type": "bool",
+        "default": false
+    },
+    {
+        "label": "Jinja Template",
+        "key": "jinja",
+        "type": "bool",
+        "default": false
+    },
+    {
+        "label": "Reasoning Format",
+        "key": "reasoning-format",
+        "type": "combo",
+        "default": "none",
+        "options": [
+            "none",
+            "deepseek",
+            "function"
+        ]
+    },
+    {
+        "label": "Reasoning Effort",
+        "key": "reasoning-effort",
+        "type": "combo",
+        "default": "",
+        "options": [
+            "",
+            "low",
+            "medium",
+            "high"
+        ]
+    },
+    {
+        "label": "Cache Type K (-ctk)",
+        "key": "ctk",
+        "type": "combo",
+        "default": "",
+        "options": [
+            "",
+            "q4_0",
+            "f16",
+            "q8_0"
+        ]
+    },
+    {
+        "label": "Cache Type V (-ctv)",
+        "key": "ctv",
+        "type": "combo",
+        "default": "",
+        "options": [
+            "",
+            "q4_0",
+            "f16",
+            "q8_0"
+        ]
+    }
+]
