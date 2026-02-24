@@ -30,26 +30,35 @@ class CommandBuilder:
             cmd.extend(["--mmproj", mmproj_path])
 
         # Boolean flags
-        if params.get("jinja", False):
+        if params.get("jinja", True):
             cmd.append("--jinja")
+        else:
+            cmd.append("--no-jinja")
 
         if params.get("host_0000", False):
             cmd.extend(["--host", "0.0.0.0"])
 
-        if params.get("flash-attn", True):  # Default on
+        # Flash attention (on/off/auto - default is auto, so only emit if explicitly set)
+        fa = params.get("flash-attn")
+        if fa is True:
             cmd.extend(["--flash-attn", "on"])
+        elif fa is False:
+            cmd.extend(["--flash-attn", "off"])
+        # if None/missing, leave as auto (server default)
 
-        # Offload mode: --fit or --n-cpu-moe <value>
+        # Offload mode: --fit on or --n-cpu-moe <value>
         offload_mode = params.get("offload-mode", "n-cpu-moe")
         if offload_mode == "fit":
-            cmd.append("--fit")
+            cmd.extend(["--fit", "on"])
+            # Fit target (MiB buffer per device) - only emit if non-default
+            fit_target = params.get("fit-target")
+            if fit_target is not None and int(fit_target) != 1024:
+                cmd.extend(["--fit-target", str(fit_target)])
         else:
-            # Manual n-cpu-moe
+            # Manual n-cpu-moe - only emit if > 0
             n_cpu_moe = params.get("n-cpu-moe")
-            if n_cpu_moe is not None:
-                val = str(n_cpu_moe)
-                if val:
-                    cmd.extend(["--n-cpu-moe", val])
+            if n_cpu_moe is not None and int(n_cpu_moe) > 0:
+                cmd.extend(["--n-cpu-moe", str(n_cpu_moe)])
 
         # Key-Value pairs
         mappings = {

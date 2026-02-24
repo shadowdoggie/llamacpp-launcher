@@ -430,24 +430,29 @@ class MainWindow(QMainWindow):
         if "mmproj" in self.inputs:
             self.inputs["mmproj"].input_widget.setEnabled(False)
 
-        # Connect offload-mode combo to toggle n-cpu-moe enabled state
-        if "offload-mode" in self.inputs and "n-cpu-moe" in self.inputs:
+        # Connect offload-mode combo to toggle n-cpu-moe / fit-target enabled state
+        if "offload-mode" in self.inputs:
             offload_widget = self.inputs["offload-mode"].input_widget
             offload_widget.currentTextChanged.connect(self._on_offload_mode_changed)
             # Set initial state
             self._on_offload_mode_changed(offload_widget.currentText())
 
     def _on_offload_mode_changed(self, text):
-        """Enable/disable n-cpu-moe input based on offload mode selection."""
-        if "n-cpu-moe" not in self.inputs:
-            return
-        moe_input = self.inputs["n-cpu-moe"]
-        if text == "fit":
-            moe_input.input_widget.setEnabled(False)
-            moe_input.label.setStyleSheet("color: #585b70;")  # Dimmed
-        else:
-            moe_input.input_widget.setEnabled(True)
-            moe_input.label.setStyleSheet("")  # Reset to theme default
+        """Enable/disable n-cpu-moe and fit-target based on offload mode selection."""
+        dimmed = "color: #585b70;"
+        is_fit = text == "fit"
+
+        # n-cpu-moe: enabled when mode is n-cpu-moe, disabled when fit
+        if "n-cpu-moe" in self.inputs:
+            moe_input = self.inputs["n-cpu-moe"]
+            moe_input.input_widget.setEnabled(not is_fit)
+            moe_input.label.setStyleSheet(dimmed if is_fit else "")
+
+        # fit-target: enabled when mode is fit, disabled when n-cpu-moe
+        if "fit-target" in self.inputs:
+            fit_input = self.inputs["fit-target"]
+            fit_input.input_widget.setEnabled(is_fit)
+            fit_input.label.setStyleSheet("" if is_fit else dimmed)
 
     def toggle_edit_mode(self, checked):
         if checked:

@@ -53,6 +53,12 @@
         "type": "int"
     },
     {
+        "default": 1024,
+        "key": "fit-target",
+        "label": "Fit Target (MiB buffer)",
+        "type": "int"
+    },
+    {
         "default": 0.7,
         "key": "temp",
         "label": "Temperature",
@@ -83,13 +89,13 @@
         "type": "int"
     },
     {
-        "default": "layer",
+        "default": "none",
         "key": "split-mode",
         "label": "Split Mode",
         "options": [
+            "none",
             "layer",
-            "row",
-            "none"
+            "row"
         ],
         "type": "combo"
     },
@@ -112,19 +118,20 @@
         "type": "bool"
     },
     {
-        "default": false,
+        "default": true,
         "key": "jinja",
         "label": "Jinja Template",
         "type": "bool"
     },
     {
-        "default": "none",
+        "default": "auto",
         "key": "reasoning-format",
         "label": "Reasoning Format",
         "options": [
+            "auto",
             "none",
             "deepseek",
-            "function"
+            "deepseek-legacy"
         ],
         "type": "combo"
     },
@@ -146,9 +153,15 @@
         "label": "Cache Type K (-ctk)",
         "options": [
             "",
-            "q4_0",
             "f16",
-            "q8_0"
+            "bf16",
+            "q8_0",
+            "q4_0",
+            "q4_1",
+            "iq4_nl",
+            "q5_0",
+            "q5_1",
+            "f32"
         ],
         "type": "combo"
     },
@@ -158,9 +171,15 @@
         "label": "Cache Type V (-ctv)",
         "options": [
             "",
-            "q4_0",
             "f16",
-            "q8_0"
+            "bf16",
+            "q8_0",
+            "q4_0",
+            "q4_1",
+            "iq4_nl",
+            "q5_0",
+            "q5_1",
+            "f32"
         ],
         "type": "combo"
     }
