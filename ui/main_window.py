@@ -459,12 +459,12 @@ class MainWindow(QMainWindow):
             fit_input.input_widget.setEnabled(is_fit)
             fit_input.label.setStyleSheet("" if is_fit else dimmed)
 
-        # These GPU allocation params are auto-managed by --fit,
-        # setting them explicitly disables --fit, so grey them out
+        # These GPU allocation params are auto-managed by --fit.
+        # Dim the labels to hint they're ignored, but keep widgets editable
+        # so the user can pre-configure them for manual mode.
         for key in ("ngl", "split-mode", "main-gpu", "ts"):
             if key in self.inputs:
                 inp = self.inputs[key]
-                inp.input_widget.setEnabled(not is_fit)
                 inp.label.setStyleSheet(dimmed if is_fit else "")
 
     def toggle_edit_mode(self, checked):

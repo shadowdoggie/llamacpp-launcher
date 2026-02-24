@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-02-25 - Fix GPU params locked in fit mode
+
+### Fixed
+- GPU allocation fields (Split Mode, GPU Layers, Main GPU, Tensor Split) are no longer disabled when Offload Mode is set to "fit". Labels are still dimmed to indicate they're ignored by `--fit`, but the widgets remain editable so users can pre-configure them for manual mode.
+
+---
+
 ## 2026-02-25 - Fix --fit mode, CLI Flag Audit, Dark Theme, Bulk Delete
 
 ### Added
