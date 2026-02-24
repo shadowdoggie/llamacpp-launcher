@@ -1,158 +1,167 @@
 [
     {
-        "label": "Model",
-        "key": "model",
-        "type": "combo",
         "default": [],
-        "options": []
+        "key": "model",
+        "label": "Model",
+        "options": [],
+        "type": "combo"
     },
     {
-        "label": "Multimodal Projector (mmproj)",
-        "key": "mmproj",
-        "type": "combo",
         "default": "",
-        "options": [""]
+        "key": "mmproj",
+        "label": "Multimodal Projector (mmproj)",
+        "options": [
+            ""
+        ],
+        "type": "combo"
     },
     {
-        "label": "Port",
+        "default": 8080,
         "key": "port",
-        "type": "int",
-        "default": 8080
+        "label": "Port",
+        "type": "int"
     },
     {
-        "label": "Context Size",
+        "default": 32000,
         "key": "ctx-size",
-        "type": "int",
-        "default": 32000
+        "label": "Context Size",
+        "type": "int"
     },
     {
-        "label": "GPU Layers (-ngl)",
+        "default": 999,
         "key": "ngl",
-        "type": "int",
-        "default": 999
+        "label": "GPU Layers (-ngl)",
+        "type": "int"
     },
     {
-        "label": "Batch Size (-ub)",
+        "default": 512,
         "key": "ub",
-        "type": "int",
-        "default": 512
+        "label": "Batch Size (-ub)",
+        "type": "int"
     },
     {
-        "label": "CPU MoE (--n-cpu-moe)",
+        "default": "n-cpu-moe",
+        "key": "offload-mode",
+        "label": "Offload Mode",
+        "options": ["n-cpu-moe", "fit"],
+        "type": "combo"
+    },
+    {
+        "default": 0,
         "key": "n-cpu-moe",
-        "type": "int",
-        "default": 0
+        "label": "CPU MoE Layers",
+        "type": "int"
     },
     {
-        "label": "Temperature",
+        "default": 0.7,
         "key": "temp",
-        "type": "float",
-        "default": 0.7
+        "label": "Temperature",
+        "type": "float"
     },
     {
-        "label": "Top P",
+        "default": 0.8,
         "key": "top-p",
-        "type": "float",
-        "default": 0.8
+        "label": "Top P",
+        "type": "float"
     },
     {
-        "label": "Top K",
+        "default": 20,
         "key": "top-k",
-        "type": "int",
-        "default": 20
+        "label": "Top K",
+        "type": "int"
     },
     {
-        "label": "Repeat Penalty",
+        "default": 1.05,
         "key": "repeat-penalty",
-        "type": "float",
-        "default": 1.05
+        "label": "Repeat Penalty",
+        "type": "float"
     },
     {
-        "label": "Main GPU",
+        "default": 0,
         "key": "main-gpu",
-        "type": "int",
-        "default": 0
+        "label": "Main GPU",
+        "type": "int"
     },
     {
-        "label": "Split Mode",
-        "key": "split-mode",
-        "type": "combo",
         "default": "layer",
+        "key": "split-mode",
+        "label": "Split Mode",
         "options": [
             "layer",
             "row",
             "none"
-        ]
+        ],
+        "type": "combo"
     },
     {
-        "label": "Tensor Split (-ts)",
+        "default": "",
         "key": "ts",
-        "type": "text",
-        "default": ""
+        "label": "Tensor Split (-ts)",
+        "type": "text"
     },
     {
-        "label": "Flash Attention",
+        "default": true,
         "key": "flash-attn",
-        "type": "bool",
-        "default": true
+        "label": "Flash Attention",
+        "type": "bool"
     },
     {
-        "label": "Expose to Network (0.0.0.0)",
+        "default": false,
         "key": "host_0000",
-        "type": "bool",
-        "default": false
+        "label": "Expose to Network (0.0.0.0)",
+        "type": "bool"
     },
     {
-        "label": "Jinja Template",
+        "default": false,
         "key": "jinja",
-        "type": "bool",
-        "default": false
+        "label": "Jinja Template",
+        "type": "bool"
     },
     {
-        "label": "Reasoning Format",
-        "key": "reasoning-format",
-        "type": "combo",
         "default": "none",
+        "key": "reasoning-format",
+        "label": "Reasoning Format",
         "options": [
             "none",
             "deepseek",
             "function"
-        ]
+        ],
+        "type": "combo"
     },
     {
-        "label": "Reasoning Effort",
-        "key": "reasoning-effort",
-        "type": "combo",
         "default": "",
+        "key": "reasoning-effort",
+        "label": "Reasoning Effort",
         "options": [
             "",
             "low",
             "medium",
             "high"
-        ]
+        ],
+        "type": "combo"
     },
     {
-        "label": "Cache Type K (-ctk)",
+        "default": "",
         "key": "ctk",
-        "type": "combo",
-        "default": "",
+        "label": "Cache Type K (-ctk)",
         "options": [
             "",
             "q4_0",
             "f16",
             "q8_0"
-        ]
+        ],
+        "type": "combo"
     },
     {
-        "label": "Cache Type V (-ctv)",
-        "key": "ctv",
-        "type": "combo",
         "default": "",
+        "key": "ctv",
+        "label": "Cache Type V (-ctv)",
         "options": [
             "",
             "q4_0",
             "f16",
             "q8_0"
-        ]
+        ],
+        "type": "combo"
     }
 ]

@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-02-25 - Dark Theme, Bulk Delete, Offload Mode Toggle
+
+### Added
+- **Delete All Profiles** button in sidebar (red, with confirmation dialog showing profile count).
+- **Offload Mode toggle**: New "Offload Mode" combo lets the user switch between `--fit` (automatic) and `--n-cpu-moe` (manual). When `fit` is selected, the CPU MoE Layers input is greyed out; when `n-cpu-moe` is selected, the input is active.
+
+### Changed
+- **Dark theme overhaul**: Replaced the unreadable light-purple background with a proper dark color scheme (Catppuccin Mocha-inspired). Dark backgrounds with high-contrast light text throughout.
+- Default theme in `theme_manager.py` updated to match.
+- Delete All Profiles button styled with red destructive-action colors.
+
+---
+
 ## 2026-02-25 - Recursive Model Scanning & Multimodal Projector Support
 
 ### Added

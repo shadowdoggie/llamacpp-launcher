@@ -307,6 +307,11 @@ class MainWindow(QMainWindow):
         btn_layout.addWidget(self.btn_delete)
         sidebar_layout.addLayout(btn_layout)
 
+        self.btn_delete_all = QPushButton("Delete All Profiles")
+        self.btn_delete_all.setObjectName("btn_delete_all")
+        self.btn_delete_all.clicked.connect(self.delete_all_profiles)
+        sidebar_layout.addWidget(self.btn_delete_all)
+
         self.btn_settings = QPushButton("Settings")
         self.btn_settings.clicked.connect(self.open_settings)
         sidebar_layout.addWidget(self.btn_settings)
@@ -424,6 +429,25 @@ class MainWindow(QMainWindow):
         # Disable mmproj combo initially until a model is selected
         if "mmproj" in self.inputs:
             self.inputs["mmproj"].input_widget.setEnabled(False)
+
+        # Connect offload-mode combo to toggle n-cpu-moe enabled state
+        if "offload-mode" in self.inputs and "n-cpu-moe" in self.inputs:
+            offload_widget = self.inputs["offload-mode"].input_widget
+            offload_widget.currentTextChanged.connect(self._on_offload_mode_changed)
+            # Set initial state
+            self._on_offload_mode_changed(offload_widget.currentText())
+
+    def _on_offload_mode_changed(self, text):
+        """Enable/disable n-cpu-moe input based on offload mode selection."""
+        if "n-cpu-moe" not in self.inputs:
+            return
+        moe_input = self.inputs["n-cpu-moe"]
+        if text == "fit":
+            moe_input.input_widget.setEnabled(False)
+            moe_input.label.setStyleSheet("color: #585b70;")  # Dimmed
+        else:
+            moe_input.input_widget.setEnabled(True)
+            moe_input.label.setStyleSheet("")  # Reset to theme default
 
     def toggle_edit_mode(self, checked):
         if checked:
@@ -606,6 +630,26 @@ class MainWindow(QMainWindow):
 
         if reply == QMessageBox.Yes:
             self.profile_manager.delete_profile(self.current_profile_name)
+            self.current_profile_name = None
+            self.load_profile_list()
+
+    def delete_all_profiles(self):
+        count = len(self.profile_manager.get_profile_names())
+        if count == 0:
+            QMessageBox.information(
+                self, "No Profiles", "There are no profiles to delete."
+            )
+            return
+
+        reply = QMessageBox.question(
+            self,
+            "Delete All Profiles",
+            f"Are you sure you want to delete ALL {count} profiles?\n\nThis cannot be undone.",
+            QMessageBox.Yes | QMessageBox.No,
+        )
+
+        if reply == QMessageBox.Yes:
+            self.profile_manager.delete_all_profiles()
             self.current_profile_name = None
             self.load_profile_list()
 

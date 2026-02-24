@@ -4,32 +4,30 @@ import copy
 
 DEFAULT_THEME = {
     "colors": {
-        "window_bg": "#2b2b2b",
-        "text": "#ffffff",
-        "label_text": "#cccccc",
-        "input_bg": "#3c3f41",
-        "input_border": "#555555",
-        "input_border_focus": "#3a96dd",
-        "button_bg": "#3a96dd",
-        "button_text": "#ffffff",
-        "button_hover": "#2b86cd",
-        "button_pressed": "#1a76bd",
-        "stop_btn_bg": "#d32f2f",
-        "stop_btn_hover": "#f44336",
-        "stop_btn_pressed": "#b71c1c",
-        "list_bg": "#3c3f41",
-        "list_item_selected": "#3a96dd"
+        "window_bg": "#1e1e2e",
+        "text": "#cdd6f4",
+        "label_text": "#bac2de",
+        "input_bg": "#313244",
+        "input_border": "#45475a",
+        "input_border_focus": "#89b4fa",
+        "button_bg": "#89b4fa",
+        "button_text": "#1e1e2e",
+        "button_hover": "#74c7ec",
+        "button_pressed": "#585b70",
+        "stop_btn_bg": "#f38ba8",
+        "stop_btn_hover": "#eba0ac",
+        "stop_btn_pressed": "#a6294a",
+        "list_bg": "#313244",
+        "list_item_selected": "#45475a",
     },
-    "fonts": {
-        "family": "Segoe UI",
-        "size": "14px"
-    },
+    "fonts": {"family": "Segoe UI", "size": "14px"},
     "sizes": {
         "border_radius": "4px",
         "input_padding": "5px",
-        "btn_padding": "8px 16px"
-    }
+        "btn_padding": "8px 16px",
+    },
 }
+
 
 class ThemeManager:
     def __init__(self, filepath):
@@ -40,7 +38,7 @@ class ThemeManager:
     def load(self):
         if os.path.exists(self.filepath):
             try:
-                with open(self.filepath, 'r') as f:
+                with open(self.filepath, "r") as f:
                     loaded = json.load(f)
                     # Merge with default to ensure all keys exist
                     self.merge_defaults(loaded, self.theme)
@@ -60,7 +58,7 @@ class ThemeManager:
     def save(self, theme_data):
         self.theme = theme_data
         try:
-            with open(self.filepath, 'w') as f:
+            with open(self.filepath, "w") as f:
                 json.dump(self.theme, f, indent=4)
         except Exception as e:
             print(f"Error saving theme: {e}")
@@ -72,75 +70,92 @@ class ThemeManager:
         c = self.theme["colors"]
         f = self.theme["fonts"]
         s = self.theme["sizes"]
-        
+
         return f"""
 QMainWindow {{
-    background-color: {c['window_bg']};
-    color: {c['text']};
+    background-color: {c["window_bg"]};
+    color: {c["text"]};
 }}
 
 QWidget {{
-    background-color: {c['window_bg']};
-    color: {c['text']};
-    font-family: '{f['family']}', sans-serif;
-    font-size: {f['size']};
+    background-color: {c["window_bg"]};
+    color: {c["text"]};
+    font-family: '{f["family"]}', sans-serif;
+    font-size: {f["size"]};
 }}
 
 QLabel {{
-    color: {c['label_text']};
+    color: {c["label_text"]};
 }}
 
 QLineEdit, QSpinBox, QDoubleSpinBox, QComboBox {{
-    background-color: {c['input_bg']};
-    border: 1px solid {c['input_border']};
-    border-radius: {s['border_radius']};
-    padding: {s['input_padding']};
-    color: {c['text']};
+    background-color: {c["input_bg"]};
+    border: 1px solid {c["input_border"]};
+    border-radius: {s["border_radius"]};
+    padding: {s["input_padding"]};
+    color: {c["text"]};
 }}
 
 QLineEdit:focus, QSpinBox:focus, QDoubleSpinBox:focus, QComboBox:focus {{
-    border: 1px solid {c['input_border_focus']};
+    border: 1px solid {c["input_border_focus"]};
 }}
 
 QPushButton {{
-    background-color: {c['button_bg']};
-    color: {c['button_text']};
+    background-color: {c["button_bg"]};
+    color: {c["button_text"]};
     border: none;
-    border-radius: {s['border_radius']};
-    padding: {s['btn_padding']};
+    border-radius: {s["border_radius"]};
+    padding: {s["btn_padding"]};
     font-weight: bold;
 }}
 
 QPushButton:hover {{
-    background-color: {c['button_hover']};
+    background-color: {c["button_hover"]};
 }}
 
 QPushButton:pressed {{
-    background-color: {c['button_pressed']};
+    background-color: {c["button_pressed"]};
 }}
 
 QPushButton#btn_stop {{
-    background-color: {c['stop_btn_bg']};
-    color: {c['button_text']};
+    background-color: {c["stop_btn_bg"]};
+    color: {c["button_text"]};
     border: none;
-    border-radius: {s['border_radius']};
-    padding: {s['btn_padding']};
+    border-radius: {s["border_radius"]};
+    padding: {s["btn_padding"]};
     font-weight: bold;
 }}
 
 QPushButton#btn_stop:hover {{
-    background-color: {c['stop_btn_hover']};
+    background-color: {c["stop_btn_hover"]};
     border: 1px solid #ffcdd2;
 }}
 
 QPushButton#btn_stop:pressed {{
-    background-color: {c['stop_btn_pressed']};
+    background-color: {c["stop_btn_pressed"]};
+}}
+
+QPushButton#btn_delete_all {{
+    background-color: {c["stop_btn_bg"]};
+    color: {c["button_text"]};
+    border: none;
+    border-radius: {s["border_radius"]};
+    padding: {s["btn_padding"]};
+    font-weight: bold;
+}}
+
+QPushButton#btn_delete_all:hover {{
+    background-color: {c["stop_btn_hover"]};
+}}
+
+QPushButton#btn_delete_all:pressed {{
+    background-color: {c["stop_btn_pressed"]};
 }}
 
 QListWidget {{
-    background-color: {c['list_bg']};
-    border: 1px solid {c['input_border']};
-    border-radius: {s['border_radius']};
+    background-color: {c["list_bg"]};
+    border: 1px solid {c["input_border"]};
+    border-radius: {s["border_radius"]};
 }}
 
 QListWidget::item {{
@@ -148,13 +163,13 @@ QListWidget::item {{
 }}
 
 QListWidget::item:selected {{
-    background-color: {c['list_item_selected']};
-    color: {c['button_text']};
+    background-color: {c["list_item_selected"]};
+    color: {c["button_text"]};
 }}
 
 QGroupBox {{
-    border: 1px solid {c['input_border']};
-    border-radius: {s['border_radius']};
+    border: 1px solid {c["input_border"]};
+    border-radius: {s["border_radius"]};
     margin-top: 20px;
 }}
 
@@ -162,6 +177,6 @@ QGroupBox::title {{
     subcontrol-origin: margin;
     left: 10px;
     padding: 0 3px 0 3px;
-    color: {c['label_text']};
+    color: {c["label_text"]};
 }}
 """

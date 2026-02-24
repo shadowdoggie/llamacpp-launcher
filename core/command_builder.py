@@ -39,6 +39,18 @@ class CommandBuilder:
         if params.get("flash-attn", True):  # Default on
             cmd.extend(["--flash-attn", "on"])
 
+        # Offload mode: --fit or --n-cpu-moe <value>
+        offload_mode = params.get("offload-mode", "n-cpu-moe")
+        if offload_mode == "fit":
+            cmd.append("--fit")
+        else:
+            # Manual n-cpu-moe
+            n_cpu_moe = params.get("n-cpu-moe")
+            if n_cpu_moe is not None:
+                val = str(n_cpu_moe)
+                if val:
+                    cmd.extend(["--n-cpu-moe", val])
+
         # Key-Value pairs
         mappings = {
             "reasoning-format": "--reasoning-format",
@@ -46,7 +58,6 @@ class CommandBuilder:
             "ctx-size": "--ctx-size",
             "ub": "-ub",
             "ngl": "-ngl",
-            "n-cpu-moe": "--n-cpu-moe",
             "temp": "--temp",
             "top-p": "--top-p",
             "top-k": "--top-k",
