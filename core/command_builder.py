@@ -46,15 +46,23 @@ class CommandBuilder:
             cmd.extend(["--flash-attn", "off"])
         # if None/missing, leave as auto (server default)
 
-        # Offload mode: --fit on or --n-cpu-moe <value>
+        # Offload mode: --fit or manual --n-cpu-moe
+        # IMPORTANT: --fit is ON by default in llama-server, but it gets DISABLED
+        # if the user explicitly sets -ngl, --tensor-split, or --override-tensor.
+        # So in fit mode we must NOT send those flags. In manual mode we send
+        # --fit off to disable it and allow full manual control.
         offload_mode = params.get("offload-mode", "n-cpu-moe")
-        if offload_mode == "fit":
-            cmd.extend(["--fit", "on"])
-            # Fit target (MiB buffer per device) - only emit if non-default
+        is_fit_mode = offload_mode == "fit"
+
+        if is_fit_mode:
+            # --fit is already on by default, no need to send --fit on
+            # Only send fit-target if changed from default (1024 MiB)
             fit_target = params.get("fit-target")
             if fit_target is not None and int(fit_target) != 1024:
                 cmd.extend(["--fit-target", str(fit_target)])
         else:
+            # Manual mode: disable --fit so it doesn't interfere
+            cmd.extend(["--fit", "off"])
             # Manual n-cpu-moe - only emit if > 0
             n_cpu_moe = params.get("n-cpu-moe")
             if n_cpu_moe is not None and int(n_cpu_moe) > 0:
@@ -66,17 +74,20 @@ class CommandBuilder:
             "port": "--port",
             "ctx-size": "--ctx-size",
             "ub": "-ub",
-            "ngl": "-ngl",
             "temp": "--temp",
             "top-p": "--top-p",
             "top-k": "--top-k",
             "repeat-penalty": "--repeat-penalty",
-            "split-mode": "--split-mode",
-            "main-gpu": "--main-gpu",
-            "ts": "-ts",
             "ctk": "-ctk",
             "ctv": "-ctv",
         }
+
+        # These flags disable --fit when explicitly set, so skip them in fit mode
+        if not is_fit_mode:
+            mappings["ngl"] = "-ngl"
+            mappings["split-mode"] = "--split-mode"
+            mappings["main-gpu"] = "--main-gpu"
+            mappings["ts"] = "-ts"
 
         for key, arg in mappings.items():
             if key in params and params[key] is not None:

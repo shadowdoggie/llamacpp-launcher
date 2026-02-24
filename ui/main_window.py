@@ -438,21 +438,34 @@ class MainWindow(QMainWindow):
             self._on_offload_mode_changed(offload_widget.currentText())
 
     def _on_offload_mode_changed(self, text):
-        """Enable/disable n-cpu-moe and fit-target based on offload mode selection."""
+        """Enable/disable fields based on offload mode selection.
+
+        In fit mode: --fit handles ngl/split-mode/main-gpu/tensor-split
+        automatically, so those are greyed out. n-cpu-moe is also disabled.
+        In manual mode: fit-target is greyed out, everything else is active.
+        """
         dimmed = "color: #585b70;"
         is_fit = text == "fit"
 
-        # n-cpu-moe: enabled when mode is n-cpu-moe, disabled when fit
+        # n-cpu-moe: enabled in manual mode only
         if "n-cpu-moe" in self.inputs:
             moe_input = self.inputs["n-cpu-moe"]
             moe_input.input_widget.setEnabled(not is_fit)
             moe_input.label.setStyleSheet(dimmed if is_fit else "")
 
-        # fit-target: enabled when mode is fit, disabled when n-cpu-moe
+        # fit-target: enabled in fit mode only
         if "fit-target" in self.inputs:
             fit_input = self.inputs["fit-target"]
             fit_input.input_widget.setEnabled(is_fit)
             fit_input.label.setStyleSheet("" if is_fit else dimmed)
+
+        # These GPU allocation params are auto-managed by --fit,
+        # setting them explicitly disables --fit, so grey them out
+        for key in ("ngl", "split-mode", "main-gpu", "ts"):
+            if key in self.inputs:
+                inp = self.inputs[key]
+                inp.input_widget.setEnabled(not is_fit)
+                inp.label.setStyleSheet(dimmed if is_fit else "")
 
     def toggle_edit_mode(self, checked):
         if checked:

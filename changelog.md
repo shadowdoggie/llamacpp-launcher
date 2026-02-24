@@ -1,11 +1,11 @@
 # Changelog
 
-## 2026-02-25 - CLI Flag Audit, Fit Target, Dark Theme, Bulk Delete
+## 2026-02-25 - Fix --fit mode, CLI Flag Audit, Dark Theme, Bulk Delete
 
 ### Added
 - **Delete All Profiles** button in sidebar (red, with confirmation dialog showing profile count).
-- **Offload Mode toggle**: New "Offload Mode" combo switches between `--fit on` (automatic) and `--n-cpu-moe` (manual). The inactive option's input is greyed out.
-- **Fit Target (MiB buffer)**: New int input for `--fit-target`, only active when offload mode is `fit`. Defaults to 1024 MiB (server default); only emitted in the command when changed from default.
+- **Offload Mode toggle**: New "Offload Mode" combo switches between `fit` (automatic) and `n-cpu-moe` (manual).
+- **Fit Target (MiB buffer)**: New int input for `--fit-target`, only active in fit mode. Defaults to 1024 MiB; only emitted when changed from default.
 
 ### Changed
 - **Dark theme overhaul**: Replaced the unreadable light-purple background with a proper dark color scheme (Catppuccin Mocha-inspired). Dark backgrounds with high-contrast light text throughout.
@@ -13,8 +13,9 @@
 - Delete All Profiles button styled with red destructive-action colors.
 - Split Mode default changed from `layer` to `none` (single GPU is the common case).
 
-### Fixed (CLI flags audited against actual `llama-server --help`)
-- `--fit` now correctly emits `--fit on` instead of bare `--fit`.
+### Fixed (CLI flags audited against actual `llama-server --help` + GitHub discussion #18049)
+- **`--fit` mode was completely broken**: sending `-ngl`, `--split-mode`, `--tensor-split`, or `--main-gpu` disables `--fit` entirely (per the feature author). In fit mode, these flags are now omitted so `--fit` can auto-manage GPU allocation. In manual mode, `--fit off` is explicitly sent.
+- GPU-related inputs (GPU Layers, Split Mode, Main GPU, Tensor Split) are now greyed out in the UI when fit mode is selected, since they're auto-managed.
 - `--flash-attn` now emits `on`/`off` properly; when unchecked emits `--flash-attn off` instead of silently still sending `on`.
 - `--jinja` / `--no-jinja` handled correctly (jinja is enabled by default in current llama-server).
 - `--n-cpu-moe 0` no longer emitted when value is 0 (pointless).
