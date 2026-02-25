@@ -130,6 +130,12 @@
         "type": "bool"
     },
     {
+        "default": false,
+        "key": "no-mmap",
+        "label": "Disable mmap (--no-mmap)",
+        "type": "bool"
+    },
+    {
         "default": "auto",
         "key": "reasoning-format",
         "label": "Reasoning Format",
