@@ -38,6 +38,9 @@ class CommandBuilder:
         if params.get("host_0000", False):
             cmd.extend(["--host", "0.0.0.0"])
 
+        if params.get("no-mmap", False):
+            cmd.append("--no-mmap")
+
         # Flash attention (on/off/auto - default is auto, so only emit if explicitly set)
         fa = params.get("flash-attn")
         if fa is True:

@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-02-25 - Add Disable mmap (--no-mmap) option
+
+### Added
+- **Disable mmap** boolean toggle (`--no-mmap`) added to the GUI. When enabled, passes `--no-mmap` to llama-server to disable memory-mapped I/O for model loading. Defaults to off.
+
+---
+
 ## 2026-02-25 - Add Min P sampling parameter
 
 ### Added

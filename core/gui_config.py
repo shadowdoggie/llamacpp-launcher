@@ -57,6 +57,12 @@ DEFAULT_PARAMS = [
     },
     {"label": "Jinja Template", "key": "jinja", "type": "bool", "default": True},
     {
+        "label": "Disable mmap (--no-mmap)",
+        "key": "no-mmap",
+        "type": "bool",
+        "default": False,
+    },
+    {
         "label": "Reasoning Format",
         "key": "reasoning-format",
         "type": "combo",
