@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-02-25 - Fix profile switching not resetting parameters
+
+### Fixed
+- **Profile switching left stale values**: When switching between profiles, parameters not saved in the target profile (e.g. newly added ones like `--no-mmap`) would retain whatever value they had from the previously selected profile instead of resetting to their defaults. All inputs now reset to defaults before applying profile data.
+
+---
+
 ## 2026-02-25 - Add Disable mmap (--no-mmap) option
 
 ### Added

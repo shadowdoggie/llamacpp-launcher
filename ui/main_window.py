@@ -573,11 +573,21 @@ class MainWindow(QMainWindow):
             return
         params = data.get("parameters", {})
 
+        # Reset all inputs to defaults first, so parameters missing from the
+        # profile don't retain stale values from a previously selected profile.
+        for key, inp in self.inputs.items():
+            if key in ("model", "mmproj"):
+                continue  # Handled specially below
+            inp.reset_to_default()
+
         # Load model first so that mmproj options get populated via the signal
         if "model" in params and "model" in self.inputs:
             self.inputs["model"].set_value(params["model"])
 
         # Then load mmproj (the combo should now have the right options)
+        # Reset mmproj to empty first
+        if "mmproj" in self.inputs:
+            self.inputs["mmproj"].input_widget.setCurrentIndex(0)
         if "mmproj" in params and "mmproj" in self.inputs:
             mmproj_val = params["mmproj"]
             if mmproj_val:
