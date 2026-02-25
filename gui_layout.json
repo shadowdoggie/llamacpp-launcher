@@ -71,6 +71,12 @@
         "type": "float"
     },
     {
+        "default": 0.0,
+        "key": "min-p",
+        "label": "Min P",
+        "type": "float"
+    },
+    {
         "default": 20,
         "key": "top-k",
         "label": "Top K",

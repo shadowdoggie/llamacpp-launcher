@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-02-25 - Add Min P sampling parameter
+
+### Added
+- **Min P** float parameter (`--min-p`) added between Top P and Top K. Defaults to 0.0 (disabled).
+
+---
+
 ## 2026-02-25 - Fix GPU params locked in fit mode
 
 ### Fixed

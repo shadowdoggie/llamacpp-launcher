@@ -31,6 +31,7 @@ DEFAULT_PARAMS = [
     },
     {"label": "Temperature", "key": "temp", "type": "float", "default": 0.7},
     {"label": "Top P", "key": "top-p", "type": "float", "default": 0.8},
+    {"label": "Min P", "key": "min-p", "type": "float", "default": 0.0},
     {"label": "Top K", "key": "top-k", "type": "int", "default": 20},
     {
         "label": "Repeat Penalty",

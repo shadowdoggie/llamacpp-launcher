@@ -76,6 +76,7 @@ class CommandBuilder:
             "ub": "-ub",
             "temp": "--temp",
             "top-p": "--top-p",
+            "min-p": "--min-p",
             "top-k": "--top-k",
             "repeat-penalty": "--repeat-penalty",
             "ctk": "-ctk",
