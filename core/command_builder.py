@@ -1,3 +1,4 @@
+import json
 import os
 
 
@@ -99,11 +100,24 @@ class CommandBuilder:
                 if val:  # Only add if not empty string
                     cmd.extend([arg, val])
 
-        # Environment Variables
+        # Chat template kwargs
+        chat_template_kwargs = {}
+
+        if "preserve-thinking" in params:
+            chat_template_kwargs["preserve_thinking"] = bool(
+                params["preserve-thinking"]
+            )
+
         if "reasoning-effort" in params and params["reasoning-effort"]:
             effort = params["reasoning-effort"]
             if effort in ["low", "medium", "high"]:
-                env["LLAMA_CHAT_TEMPLATE_KWARGS"] = f'{{"reasoning_effort":"{effort}"}}'
+                chat_template_kwargs["reasoning_effort"] = effort
+
+        # Environment Variables
+        if chat_template_kwargs:
+            env["LLAMA_CHAT_TEMPLATE_KWARGS"] = json.dumps(
+                chat_template_kwargs, separators=(",", ":")
+            )
 
         return cmd, env
 

@@ -148,6 +148,12 @@
         "type": "combo"
     },
     {
+        "default": false,
+        "key": "preserve-thinking",
+        "label": "Preserve Thinking",
+        "type": "bool"
+    },
+    {
         "default": "",
         "key": "reasoning-effort",
         "label": "Reasoning Effort",

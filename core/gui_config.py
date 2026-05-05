@@ -70,6 +70,12 @@ DEFAULT_PARAMS = [
         "options": ["auto", "none", "deepseek", "deepseek-legacy"],
     },
     {
+        "label": "Preserve Thinking",
+        "key": "preserve-thinking",
+        "type": "bool",
+        "default": False,
+    },
+    {
         "label": "Reasoning Effort",
         "key": "reasoning-effort",
         "type": "combo",

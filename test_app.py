@@ -14,6 +14,7 @@ class TestLauncher(unittest.TestCase):
             "ctx-size": 4096,
             "flash-attn": True,
             "jinja": False,
+            "preserve-thinking": True,
             "reasoning-effort": "medium"
         }
         cmd, env = builder.build_command(params)
@@ -27,7 +28,10 @@ class TestLauncher(unittest.TestCase):
         
         # Check env vars
         self.assertIn("LLAMA_CHAT_TEMPLATE_KWARGS", env)
-        self.assertEqual(env["LLAMA_CHAT_TEMPLATE_KWARGS"], '{"reasoning_effort":"medium"}')
+        self.assertEqual(
+            env["LLAMA_CHAT_TEMPLATE_KWARGS"],
+            '{"preserve_thinking":true,"reasoning_effort":"medium"}',
+        )
 
     def test_profile_manager(self):
         test_file = "test_profiles.json"
