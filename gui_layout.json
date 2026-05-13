@@ -40,6 +40,29 @@
         "type": "int"
     },
     {
+        "default": 0,
+        "key": "parallel",
+        "label": "Parallel Slots (-np, 0=auto)",
+        "type": "int"
+    },
+    {
+        "default": "none",
+        "key": "spec-type",
+        "label": "Speculative Type",
+        "options": [
+            "none",
+            "draft-mtp",
+            "draft-mtp,ngram-mod"
+        ],
+        "type": "combo"
+    },
+    {
+        "default": 2,
+        "key": "spec-draft-n-max",
+        "label": "Spec Draft Max",
+        "type": "int"
+    },
+    {
         "default": "n-cpu-moe",
         "key": "offload-mode",
         "label": "Offload Mode",

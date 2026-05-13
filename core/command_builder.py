@@ -50,6 +50,22 @@ class CommandBuilder:
             cmd.extend(["--flash-attn", "off"])
         # if None/missing, leave as auto (server default)
 
+        # Speculative decoding / MTP
+        spec_type = params.get("spec-type", "none")
+        spec_enabled = bool(spec_type and spec_type != "none")
+        if spec_enabled:
+            cmd.extend(["--spec-type", spec_type])
+            spec_draft_n_max = params.get("spec-draft-n-max")
+            if spec_draft_n_max is not None and int(spec_draft_n_max) > 0:
+                cmd.extend(["--spec-draft-n-max", str(spec_draft_n_max)])
+
+        # Parallel slots. MTP requires one slot; auto-set when enabled unless user overrides.
+        parallel = params.get("parallel")
+        if parallel is not None and int(parallel) > 0:
+            cmd.extend(["--parallel", str(parallel)])
+        elif spec_enabled:
+            cmd.extend(["--parallel", "1"])
+
         # Offload mode: --fit or manual --n-cpu-moe
         # IMPORTANT: --fit is ON by default in llama-server, but it gets DISABLED
         # if the user explicitly sets -ngl, --tensor-split, or --override-tensor.

@@ -15,7 +15,10 @@ class TestLauncher(unittest.TestCase):
             "flash-attn": True,
             "jinja": False,
             "preserve-thinking": True,
-            "reasoning-effort": "medium"
+            "reasoning-effort": "medium",
+            "spec-type": "draft-mtp",
+            "spec-draft-n-max": 2,
+            "parallel": 0,
         }
         cmd, env = builder.build_command(params)
         
@@ -25,6 +28,12 @@ class TestLauncher(unittest.TestCase):
         self.assertIn("C:\\models\\my_model.gguf", cmd)
         self.assertIn("--port", cmd)
         self.assertIn("8081", cmd)
+        self.assertIn("--spec-type", cmd)
+        self.assertIn("draft-mtp", cmd)
+        self.assertIn("--spec-draft-n-max", cmd)
+        self.assertIn("2", cmd)
+        self.assertIn("--parallel", cmd)
+        self.assertIn("1", cmd)
         
         # Check env vars
         self.assertIn("LLAMA_CHAT_TEMPLATE_KWARGS", env)

@@ -16,6 +16,25 @@ DEFAULT_PARAMS = [
     {"label": "GPU Layers (-ngl)", "key": "ngl", "type": "int", "default": 999},
     {"label": "Batch Size (-ub)", "key": "ub", "type": "int", "default": 512},
     {
+        "label": "Parallel Slots (-np, 0=auto)",
+        "key": "parallel",
+        "type": "int",
+        "default": 0,
+    },
+    {
+        "label": "Speculative Type",
+        "key": "spec-type",
+        "type": "combo",
+        "default": "none",
+        "options": ["none", "draft-mtp", "draft-mtp,ngram-mod"],
+    },
+    {
+        "label": "Spec Draft Max",
+        "key": "spec-draft-n-max",
+        "type": "int",
+        "default": 2,
+    },
+    {
         "label": "Offload Mode",
         "key": "offload-mode",
         "type": "combo",
